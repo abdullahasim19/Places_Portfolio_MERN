@@ -30,7 +30,7 @@ const DUMMY_PLACES = [
   ];
 
 function UserPlaces(props) {
-    const userId=useParams().userId;
+    const userId=useParams().userId; // loading places according to the userId
     const loadedPlaces=DUMMY_PLACES.filter((place)=>{return (place.creator===userId)})
 
   return (
