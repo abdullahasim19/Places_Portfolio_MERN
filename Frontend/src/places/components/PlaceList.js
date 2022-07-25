@@ -26,6 +26,7 @@ function PlaceList(props) {
             <PlaceItem key={place.id} id={place.id} image={place.image} title={place.title} 
             description={place.description} address={place.address} creatorId={place.creator}
             coordinates={place.location}
+            onDelete={props.onDeletePlace}
             />
             )
         }))}

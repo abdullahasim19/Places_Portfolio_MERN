@@ -99,6 +99,7 @@ function UpdatePage() {
   
   return(
     <React.Fragment>
+      {console.log(error)}
       <ErrorModal error={error} onClear={manageError}/>
       {
         !isloading&&loadedPlace&&(

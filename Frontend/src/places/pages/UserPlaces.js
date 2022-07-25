@@ -23,11 +23,16 @@ function UserPlaces(props) {
       }
       fetchData();
     },[sendRequest,userId])
-    
+  
+  const DeletePlaceHandler=(placeId)=>{
+    setLoadedPlaces((prev)=>{
+      return prev.filter(p=>p.id!==placeId);
+    })
+  }
 
   return (
     <React.Fragment>
-      <ErrorModal error={error} onCancel={manageError}/>
+      <ErrorModal error={error} onClear={manageError}/>
       {
         isloading&&(
           <div className='center'>
@@ -36,7 +41,7 @@ function UserPlaces(props) {
         )
       }
       {
-        !isloading &&loadedPlaces&&<PlaceList items={loadedPlaces}/>
+        !isloading &&loadedPlaces&&<PlaceList items={loadedPlaces} onDeletePlace={DeletePlaceHandler}/>
       }
       
     </React.Fragment>
