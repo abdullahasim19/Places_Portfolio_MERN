@@ -20,7 +20,7 @@ export default function UsersList(props) {
         <ul className='users-list'>
             {props.items.map(user=>{
                 return <UserItem key={user.id} id={user.id} image={user.image} name={user.name} 
-                placeCount={user.places}
+                placeCount={user.places.length}
                 />
             })}
         </ul>
