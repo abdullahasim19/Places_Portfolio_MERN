@@ -8,8 +8,8 @@ import {useHttpClient} from '../../shared/hooks/http-hook';
 import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner';
 import ErrorModal from '../../shared/components/UIElements/ErrorModal';
 import { AuthContext } from '../../shared/context/auth-context';
+import ImageUpload from '../../shared/components/FormElements/ImageUpload';
 import "./PlaceForm.css";
-
 
 
 export default function NewPlace() {
@@ -30,6 +30,10 @@ export default function NewPlace() {
       address:{
         value:'',
         isValid:false
+      },
+      image:{
+        value:null,
+        isValid:false
       }
   },false)
 
@@ -38,14 +42,14 @@ export default function NewPlace() {
  const onSubmitHandler=async (e)=>{
     e.preventDefault();
    try {
+    const formData=new FormData();
+    formData.append('title',formState.inputs.title.value);
+    formData.append('description',formState.inputs.description.value);
+    formData.append('address',formState.inputs.address.value);
+    formData.append('creator',auth.userId);
+    formData.append('image',formState.inputs.image.value);
       await sendRequest('http://localhost:5000/api/places','POST',
-      JSON.stringify({
-        title:formState.inputs.title.value,
-        description:formState.inputs.description.value,
-        address:formState.inputs.address.value,
-        creator:auth.userId
-      }),
-      {'Content-Type':'application/json'}
+      formData
       );
       history.push('/');
    } catch (error) {
@@ -80,7 +84,11 @@ export default function NewPlace() {
     validators={[VALIDATOR_REQUIRE()]}
     onInput={inputHandler}
     />
-
+<ImageUpload
+  id="image"
+  Input={inputHandler}
+  errorText="Please provide an image"
+/>
   <Button type="submit" disabled={!formState.isValid} >
     ADD PLACE
   </Button>

@@ -129,7 +129,8 @@ function Auth() {
             }
             {
                 !isLoginMode&&(
-                    <ImageUpload id='image' center Input={inputHandler}/>
+                    <ImageUpload id='image' center Input={inputHandler} 
+                    errorText="Please provide an image"/>
                 )
             }
             <Input element="input" id="email" type="email" label="E-mail" 
