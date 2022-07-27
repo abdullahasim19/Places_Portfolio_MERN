@@ -4,12 +4,16 @@ const placesroutes=require('./routes/places-routes');
 const usersroutes=require('./routes/users-routes');
 const HttpError = require('./models/http-error');
 const mongoose=require('mongoose');
+const fs=require('fs');
+const path=require('path');
 
 const connectionString='mongodb+srv://abdullah:Leomessi10@cluster0.4oyzq.mongodb.net/Mern?retryWrites=true&w=majority'
 
 const app = express();
 
 app.use(bodyParser.json());
+
+app.use('/uploads/images',express.static(path.join('uploads','images')));
 
 app.use((req,res,next)=>{
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -32,6 +36,11 @@ app.use((req,res,next)=>{
 
 //this will execute if any error is thrown
 app.use((err,req,res,next)=>{ //error handling
+    if(req.file){
+        fs.unlink(req.file.path,(err)=>{
+           err&& console.log(err);
+        });
+    }
     if(res.headerSend)
     {
         return next(err);
