@@ -34,7 +34,6 @@ function Auth() {
 
     const authSubmitHandler=async (e)=>{
         e.preventDefault();
-        console.log(formState.inputs);
         if(!isLoginMode)
         {
             try 
@@ -47,8 +46,9 @@ function Auth() {
                 const responseData=await sendRequest('http://localhost:5000/api/users/signup','POST',
                 formData
                 );
-               
-                auth.login(responseData.user.id);
+                
+                auth.login(responseData.userId,responseData.token);
+                
             } 
             catch (error) {
                 console.log("Error occured!");
@@ -65,8 +65,7 @@ function Auth() {
                     password:formState.inputs.password.value
                     }),{'Content-Type':'application/json'},
                  );
-
-                auth.login(responseData.user.id);
+                auth.login(responseData.userId,responseData.token);
             } 
             catch (error) {
                 console.log("Error occured!");
