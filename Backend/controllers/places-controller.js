@@ -104,6 +104,10 @@ const updatePlace=async (req,res,next)=>{
   {
     return next(new HttpError('Could not find place',404));
   }
+  if(place.creator.toString()!==req.userData.userId)
+  {
+    return next(new HttpError('You are not allowed to updated the place',401));
+  }
 
   place.title=title;
   place.description=description;
