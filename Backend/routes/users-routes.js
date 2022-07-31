@@ -19,7 +19,4 @@ fileUpload.single('image'),
 router.post('/login',usersController.login);
 
 
-
-
-
 module.exports=router;
