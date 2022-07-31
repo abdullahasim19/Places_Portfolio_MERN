@@ -106,7 +106,7 @@ const updatePlace=async (req,res,next)=>{
   }
   if(place.creator.toString()!==req.userData.userId)
   {
-    return next(new HttpError('You are not allowed to updated the place',401));
+    return next(new HttpError('You are not allowed to updated this place',401));
   }
 
   place.title=title;
@@ -135,6 +135,11 @@ const deletePlace=async (req,res,next)=>{
   if(!place)
   {
     return next(new HttpError('Place to be deleted not found',404));
+  }
+
+  if(place.creator.id!==req.userData.userId)
+  {
+    return next(new HttpError('You are not allowed to Delete this place',401)); 
   }
   const imagePath=place.image;
 
