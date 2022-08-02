@@ -1,4 +1,4 @@
-import React,{useState,useCallback} from 'react';
+import React from 'react';
 import {BrowserRouter as Router,Redirect,Route,Switch} from 'react-router-dom';
 import UserPlaces from './places/pages/UserPlaces';
 import UpdatePage from './places/pages/UpdatePage';
@@ -7,20 +7,12 @@ import NewPlace from './places/pages/NewPlace';
 import MainNavigation from './shared/components/Navigation/MainNavigation';
 import Auth from './users/pages/Auth';
 import {AuthContext} from './shared/context/auth-context';
+import {useAuth} from './shared/hooks/auth-hook';
+
 
 function App() {
-  const[token,setToken]=useState(false);
-  const [userId,setUserid]=useState(null);
-
-  const login=useCallback((uid,newtoken)=>{
-    setToken(newtoken);
-    setUserid(uid);
-  },[])
-
-  const logout=useCallback((uid)=>{
-    setToken(null);
-    setUserid(null);
-  },[])
+  
+  const {token,login,logout,userId}=useAuth();
 
   let routes;
 
