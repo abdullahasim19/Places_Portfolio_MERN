@@ -44,7 +44,7 @@ const createPlace=async (req,res,next)=>{
   {
       return next(new HttpError("Invalid Inputs",422));
   }
-    const {title,description,address,creator}=req.body;
+    const {title,description,address}=req.body;
 
     const coordinates=getCoordinates();
     const createdPlace=Place({
@@ -53,12 +53,12 @@ const createPlace=async (req,res,next)=>{
       address,
       location:coordinates,
       image: req.file.path,
-      creator
+      creator:req.userData.userId
     });
 
     let existingUser;
     try {
-      existingUser=await User.findById(creator); //checking if creator of place exists or not
+      existingUser=await User.findById(req.userData.userId); //checking if creator of place exists or not
     } catch (error) {
       return next(HttpError(error,500));
     }
