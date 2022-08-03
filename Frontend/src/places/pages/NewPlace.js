@@ -16,7 +16,7 @@ export default function NewPlace() {
   const history=useHistory();
 
   const auth=useContext(AuthContext);
-  const {isloading,error,sendRequest,manageError}=useHttpClient();
+  const {isloading,error,sendRequest,manageError,setError}=useHttpClient();
 
    const [formState,inputHandler] =useForm({
       title:{
@@ -34,6 +34,14 @@ export default function NewPlace() {
       image:{
         value:null,
         isValid:false
+      },
+      latitude:{
+        value:null,
+        isValid:false
+      },
+      longitude:{
+        value:null,
+        isValid:false
       }
   },false)
 
@@ -41,12 +49,20 @@ export default function NewPlace() {
 
  const onSubmitHandler=async (e)=>{
     e.preventDefault();
+    if(isNaN(formState.inputs.latitude.value) || isNaN(formState.inputs.longitude.value))
+    {
+        setError('Invalid latitude or longitude');
+        return;
+    }
+    
    try {
     const formData=new FormData();
     formData.append('title',formState.inputs.title.value);
     formData.append('description',formState.inputs.description.value);
     formData.append('address',formState.inputs.address.value);
     formData.append('image',formState.inputs.image.value);
+    formData.append('latitude',formState.inputs.latitude.value);
+    formData.append('longitude',formState.inputs.longitude.value);
       await sendRequest('http://localhost:5000/api/places','POST',
       formData,
       {
@@ -83,6 +99,21 @@ export default function NewPlace() {
     id="address"
     element="input"  label="Address" 
     errorText="Please enter a valid address"
+    validators={[VALIDATOR_REQUIRE()]}
+    onInput={inputHandler}
+    />
+  <Input 
+    id="latitude"
+    element="input"  label="Latitude" 
+    errorText="Please enter a valid latitude"
+    validators={[VALIDATOR_REQUIRE()]}
+    onInput={inputHandler}
+    />
+
+<Input 
+    id="longitude"
+    element="input"  label="Longitude" 
+    errorText="Please enter a valid longitude"
     validators={[VALIDATOR_REQUIRE()]}
     onInput={inputHandler}
     />

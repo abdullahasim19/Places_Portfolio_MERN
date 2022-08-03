@@ -45,5 +45,5 @@ export const useHttpClient=()=>
         };
     },[]);
 
-    return {isloading,error,sendRequest,manageError};
+    return {isloading,error,sendRequest,manageError,setError};
 }
