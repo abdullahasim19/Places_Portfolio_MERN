@@ -44,9 +44,12 @@ const createPlace=async (req,res,next)=>{
   {
       return next(new HttpError("Invalid Inputs",422));
   }
-    const {title,description,address}=req.body;
+    const {title,description,address,latitude,longitude}=req.body;
 
-    const coordinates=getCoordinates();
+    const coordinates={
+      lat:latitude,
+      lng:longitude
+    }
     const createdPlace=Place({
       title,
       description,
