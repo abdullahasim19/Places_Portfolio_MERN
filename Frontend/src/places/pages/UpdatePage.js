@@ -35,7 +35,7 @@ function UpdatePage() {
   useEffect(()=>{
     const fetchPlace=async()=>{
       try {
-        const responseData=await sendRequest(`http://localhost:5000/api/places/${placeId}`)
+        const responseData=await sendRequest(`${process.env.REACT_APP_BACKEND_URL}/places/${placeId}`)
         setloadedPlace(responseData.place);
 
         setFormData({
@@ -61,7 +61,7 @@ function UpdatePage() {
   const placeUpdateSubmitHandler=async(e)=>{
     e.preventDefault();
     try {
-      await sendRequest(`http://localhost:5000/api/places/${placeId}`,'PATCH',
+      await sendRequest(`${process.env.REACT_APP_BACKEND_URL}/api/places/${placeId}`,'PATCH',
       JSON.stringify({
         title:formState.inputs.title.value,
         description:formState.inputs.description.value

@@ -63,7 +63,7 @@ export default function NewPlace() {
     formData.append('image',formState.inputs.image.value);
     formData.append('latitude',formState.inputs.latitude.value);
     formData.append('longitude',formState.inputs.longitude.value);
-      await sendRequest('http://localhost:5000/api/places','POST',
+      await sendRequest(process.env.REACT_APP_BACKEND_URL+'/places','POST',
       formData,
       {
         Authorization:'Bearer '+auth.token

@@ -12,7 +12,7 @@ export default function Users() {
     const fetchUsers=async()=>{
       try 
       {
-        const responseData=await sendRequest('http://localhost:5000/api/users/');//by default method is get
+        const responseData=await sendRequest(process.env.REACT_APP_BACKEND_URL+'/users/');//by default method is get
         setLoadedUsers(responseData.users);
       } 
       catch (error) 
