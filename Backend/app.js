@@ -7,7 +7,7 @@ const mongoose=require('mongoose');
 const fs=require('fs');
 const path=require('path');
 
-const connectionString='mongodb+srv://abdullah:Leomessi10@cluster0.4oyzq.mongodb.net/Mern?retryWrites=true&w=majority'
+const connectionString=`mongodb+srv://${process.env.DB_USER.toLowerCase()}:${process.env.DB_PASS}@cluster0.4oyzq.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`
 
 const app = express();
 
@@ -51,4 +51,7 @@ app.use((err,req,res,next)=>{ //error handling
 
 mongoose.connect(connectionString)
 .then(app.listen(5000))
-.catch(err=>console.log(err))
+.catch(err=>{
+    console.log("Connection error");
+    console.log(err)
+})

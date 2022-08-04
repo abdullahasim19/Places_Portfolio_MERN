@@ -1,0 +1,8 @@
+{
+    "env":{
+        "DB_USER":"abdullah",
+        "DB_PASS":"Leomessi10",
+        "DB_NAME":"mern",
+        "JWT_KEY":"verysecret"
+    }
+}

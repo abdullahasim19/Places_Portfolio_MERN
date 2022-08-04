@@ -46,7 +46,7 @@ const login=async (req,res,next)=>{
 
     let token;
     try {
-        token=jwt.sign({userId:existingUser.id,email:existingUser.email},'verysecret',{expiresIn:'1h'});
+        token=jwt.sign({userId:existingUser.id,email:existingUser.email},process.env.JWT_KEY,{expiresIn:'1h'});
     } catch (error) {
         return next(new HttpError(error,500));   
     }
@@ -104,7 +104,7 @@ const signup=async(req,res,next)=>{
 
     let token;
     try {
-        token = jwt.sign({userId:createdUser.id,email:createdUser.email},'verysecret',{expiresIn:'1h'});
+        token = jwt.sign({userId:createdUser.id,email:createdUser.email},process.env.JWT_KEY,{expiresIn:'1h'});
     } catch (error) {
         return next(new HttpError(error,500));   
     }
